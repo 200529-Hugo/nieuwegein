@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header,.orange,#footer{
+    background-color: orange;
+    width: 100%;
+}
+
+#content{
+    background-color: rgb(211, 211, 211);
+    padding: 20px 50px;
+}
+
+#block{
+    border-radius: 7px;
+    border: 2px solid black;
+    background-color: black;
+}
+
+.orange{
+    padding: 10px 20px;
+    border-radius: 7px 7px 0 0;
+    box-sizing: border-box; 
+}
+
+.white{
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 0 0 7px 7px;
+    box-sizing: border-box; 
+}
+
+.blockLink{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.blockLink a{
+    color: black;
+    background-color: white;
+    border-radius: 3px;
+    border: 2px solid black;
+    text-decoration: none;
+    width: fit-content;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px 20px;
+}
+
+.searchbar{
+    background-color: black;
+    border-radius: 20px;
+    height: 20px;
+}
+
+.searchbar input{
+    width: 80%;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    border: none;
+}
+
+.searchbar button{
+    width: 19%;
+    border-radius: 0 20px 20px 0;
+    outline: none;
+    border: none;
+}
+
+.cards{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.helpCard{
+    background-color: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    width:min-content;
+    min-width: 22%;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.helpCard img{
+    width: 40%;
+}
+
+.helpCard p:last-of-type{
+    text-align: right;
+    letter-spacing: 5px;
+    font-size: 30px;
+}
