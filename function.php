@@ -7,11 +7,11 @@ $typeFunction = $_POST['typeFunction'];
 if ($typeFunction == "messageSendTxt") {
     $id = $_POST['id'];
     $message = $_POST['message'];
-    $messager = $_POST['messager'];
-    $receiver = $_POST['receiver'];
+    $messager = $_POST['mid'];
+    $receiver = $_POST['rid'];
 
-    $liqry = $conn->prepare("INSERT INTO `chat` (`message`, `messager`, `receiver` ) VALUES (?, ?, ?);");
-    $liqry->bind_param('sss', $message, $messager, $receiver);  
+    $liqry = $conn->prepare("INSERT INTO `chat` (`request`,`message`, `mid`, `rid` ) VALUES (?, ?, ?, ?);");
+    $liqry->bind_param('ssss',$id, $message, $messager, $receiver);  
     $liqry->execute();
     $liqry->close();    
     header("Location: ./offerHelp.php?messager=$messager&receiver=$receiver&id=$id");
@@ -21,11 +21,11 @@ if ($typeFunction == "messageSendTxt") {
 if ($typeFunction == "messageSendQuick") {
     $id = $_POST['id'];
     $message = $_POST['message'];
-    $messager = $_POST['messager'];
-    $receiver = $_POST['receiver'];
+    $messager = $_POST['mid'];
+    $receiver = $_POST['rid'];
 
-    $liqry = $conn->prepare("INSERT INTO `chat` (`message`, `messager`, `receiver` ) VALUES (?, ?, ?);");
-    $liqry->bind_param('sss', $message, $messager, $receiver);
+    $liqry = $conn->prepare("INSERT INTO `chat` (`request`,`message`, `mid`, `rid` ) VALUES (?,?, ?, ?);");
+    $liqry->bind_param('ssss',$id, $message, $messager, $receiver);
     $liqry->execute();
     $liqry->close();
     header("Location: ./offerHelp.php?messager=$messager&receiver=$receiver&id=$id");
@@ -38,10 +38,10 @@ if($typeFunction == "askHelp"){
     $category = $_POST['category'];
     $location = $_POST['location'];
     $info = $_POST['info'];
-    $who = "no one";
+    $wid = 0;
     $created = date("Y/m/d");
-    $liqry = $conn->prepare("INSERT INTO `request` (`uid`, `title`, `category`, `location`, `info`, `who`, hidden, created ) VALUES (?, ?, ?, ?, ?, ?, 0, ?);");
-    $liqry->bind_param('sssssss', $uid, $title, $category, $location, $info, $who, $created);
+    $liqry = $conn->prepare("INSERT INTO `request` (`uid`, `wid`, `title`, `category`, `location`, `info`, hidden, created ) VALUES (?, ?, ?, ?, ?, ?, 0, ?);");
+    $liqry->bind_param('sssssss', $uid, $wid, $title, $category, $location, $info, $created);
     $liqry->execute();
     $liqry->close();
     header('Location: ./home.php');
@@ -49,8 +49,12 @@ if($typeFunction == "askHelp"){
 }
 
 if($typeFunction == "noHelp"){
-    $liqry = $conn->prepare("UPDATE request SET who = ? WHERE id = ? LIMIT 1;");
-    $liqry->bind_param('si', $who, $id);
+    $liqry = $conn->prepare("UPDATE request SET wid = 0 WHERE id = ?;");
+    $liqry->bind_param('i', $_POST['id']);
+    $liqry->execute();
+    $liqry->close();
+    $liqry = $conn->prepare("DELETE FROM chat WHERE request = ?;");
+    $liqry->bind_param('i',$_POST['id']);
     $liqry->execute();
     $liqry->close();
     header('Location: ./home.php');
@@ -63,4 +67,10 @@ if($typeFunction == "solved"){
     $liqry->bind_param('i',$id);
     $liqry->execute();
     $liqry->close();
+    $liqry = $conn->prepare("DELETE FROM chat WHERE request = ?;");
+    $liqry->bind_param('i',$id);
+    $liqry->execute();
+    $liqry->close();
+    header('Location: ./home.php');
+    die();
 }

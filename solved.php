@@ -8,14 +8,14 @@ include('./core.php');
         <h2 style="color: red">Are you sure you want to delete this product?</h2>
         <?php
             $id = $_GET['id'];
-            $liqry = $conn->prepare("SELECT id, uid, title, category, location, info, who FROM request WHERE id = ?;");
+            $liqry = $conn->prepare("SELECT id, uid, wid, title, category, location, info FROM request WHERE id = ?;");
             $liqry->bind_param('i', $id);
             $liqry->execute();
-            $liqry->bind_result($cid, $name, $title, $category, $location, $info, $who);
+            $liqry->bind_result($cid, $name, $who, $title, $category, $location, $info);
             $liqry->store_result();
             $liqry->fetch();
             if ($liqry->num_rows == '1') {
-                echo "ID: $cid <br>;
+                echo "ID: $cid <br>
                  <input type='hidden' name='id' value='$cid' />
                  Naam: $name <br>
                  Title: $title <br>

@@ -1,15 +1,14 @@
 <?php
 include('./core.php');
-
+session_start();
 
 $id = $_GET['id'];
-$messager = $_GET['messager'];
+$messager = $_SESSION["id"];
 $receiver = $_GET['receiver'];
 
 
-$query1 = $conn->prepare("UPDATE request SET who = ? WHERE id = ?;");
-
-$query1->bind_param('si', $messager, $id);
+$query1 = $conn->prepare("UPDATE request SET wid = ? WHERE id = ? AND wid = 0 AND uid != ?;");
+$query1->bind_param('sis', $messager, $id, $messager);
 $query1->execute();
 $query1->close();
 ?>
@@ -19,8 +18,8 @@ $query1->close();
 <body>
 <form action="function.php" method="POST">
     message<input type="text" name="message" value="">
-    <input type="hidden" name="messager" value="<?= $messager ?>">
-    <input type="hidden" name="receiver" value="<?= $receiver ?>">
+    <input type="hidden" name="mid" value="<?= $messager ?>">
+    <input type="hidden" name="rid" value="<?= $receiver ?>">
     <input type="hidden" name="id" value="<?= $id ?>">
     <br><br>
     <input type="hidden" name="typeFunction" value="messageSendTxt">
@@ -42,27 +41,27 @@ $query1->close();
             }
             $liqry->close();
         ?>
-        <input type="hidden" name="messager" value="<?= $messager ?>">
-        <input type="hidden" name="receiver" value="<?= $receiver ?>">
+        <input type="hidden" name="mid" value="<?= $messager ?>">
+        <input type="hidden" name="rid" value="<?= $receiver ?>">
         <input type="hidden" name="id" value="<?= $id ?>">
         <input type="hidden" name="typeFunction" value="messageSendQuick">
         <input type="submit" name="submit" value="Opslaan">
-        </form>
+    </form>
 
     <!-- alles op het scherm krijgen -->
 <?php
-    $liqry = $conn->prepare("SELECT * FROM chat WHERE (messager = ? AND receiver = ?) OR (messager = ? AND receiver = ?) ORDER BY created  ");
-    $liqry->bind_param('ssss', $messager, $receiver ,$messager, $receiver);
-    $liqry->bind_result($cid,$rid,$message, $messager, $receiver, $created);
+    $liqry = $conn->prepare("SELECT * FROM chat WHERE request = ? ORDER BY created  ");
+    $liqry->bind_param('s', $_GET['id']);
+    $liqry->bind_result($cid,$req,$rid,$mid,$message,$created);
     $liqry->execute();
     $liqry->store_result();
     while ($liqry->fetch()) {?>
         <div id="cards">
-            <?= $messager ?><br>
+            <?= $mid ?><br>
             <?= $message ?><br>
             <?= $created ?><br>
-            <br><br>
         </div>
+        <br>
 <?php
     }
     $liqry->close();
