@@ -21,7 +21,7 @@
         header("location: login.php");
         exit;
     }
-    $name = htmlspecialchars($_SESSION["name"]);
+    $name = strtoupper(str_split(htmlspecialchars($_SESSION["name"]))[0]);
     ?>
     <h1>Hi, <b> <?= $name ?></b>. Welcome to our site.</h1>
     <p>
@@ -36,19 +36,28 @@
     <br>
     Iedereen die hulp nodig heeft.
     <?php
-        $liqry = $conn->prepare("SELECT id, uid, wid, title, category, location, info FROM request WHERE wid = 0 AND uid != ?;");
-        $liqry->bind_param('s', $_SESSION["id"]);
-        $liqry->bind_result($id, $uid, $who, $title, $category, $location, $info);
-        if ($liqry->execute()) {
-            $liqry->store_result();
-            while ($liqry->fetch()) { echo "
-                <div id='cards'>
-                    ${id}<br>${name}<br>${title}<br>${category}<br>${location}<br>${info}<br>${who}<br>
-                    <a href='offerHelp.php?receiver=${uid}&id=${id}'>ello</a>
-                </div>";
+        $seeCategory = $conn->prepare("SELECT category FROM user WHERE id = ?");
+        $seeCategory->bind_param('s', $_SESSION["id"]);
+        $seeCategory->bind_result($theCategory);
+        $seeCategory->execute();
+        $seeCategory->store_result();
+        while ($seeCategory->fetch()) {
+            $liqry = $conn->prepare("SELECT id, uid, wid, title, category, location, info FROM request WHERE wid = 0 AND uid != ? AND category IN (".$theCategory.");");
+            $liqry->bind_param('s', $_SESSION["id"],);
+            $liqry->bind_result($id, $uid, $who, $title, $category, $location, $info);
+            if ($liqry->execute()) {
+                $liqry->store_result();
+                while ($liqry->fetch()) { echo "
+                    <div id='cards'>
+                        ${id}<br>${name}<br>${title}<br>${category}<br>${location}<br>${info}<br>${who}<br>
+                        <a href='offerHelp.php?receiver=${uid}&id=${id}'>ello</a>
+                    </div>";
+                }
             }
+        
         }
         $liqry->close();
+        $seeCategory->close();
     ?>
 
 </body>

@@ -14,6 +14,14 @@ $query1->close();
 ?>
 <head>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                $("#autodata").load("autoChat.php?id=<?= $_GET['id']; ?>");
+            }, 100);
+        })
+    </script>
 </head>
 <body>
 <form action="function.php" method="POST">
@@ -49,22 +57,8 @@ $query1->close();
     </form>
 
     <!-- alles op het scherm krijgen -->
-<?php
-    $liqry = $conn->prepare("SELECT * FROM chat WHERE request = ? ORDER BY created  ");
-    $liqry->bind_param('s', $_GET['id']);
-    $liqry->bind_result($cid,$req,$rid,$mid,$message,$created);
-    $liqry->execute();
-    $liqry->store_result();
-    while ($liqry->fetch()) {?>
-        <div id="cards">
-            <?= $mid ?><br>
-            <?= $message ?><br>
-            <?= $created ?><br>
-        </div>
-        <br>
-<?php
-    }
-    $liqry->close();
+    <div id="autodata"></div>
+<?php 
     echo '<a href="notEnoughHelp.php?id=' . $id . '">Mijn helper kan me niet genoeg helpen</a><br>';
     echo '<a href="solved.php?id=' . $id . '">Mijn probleem is opgelost</a><br>';
 ?>

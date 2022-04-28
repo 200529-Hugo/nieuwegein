@@ -14,7 +14,7 @@ include("../core.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name       = $_POST['name'];
     $bio        = $_POST['bio'];
-    $category   = implode("-",$_POST['category']);
+    $category   = implode(",",$_POST['category']);
     $helper     = $_POST['helper'];
     $password   = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $number     = $_POST['number'];
