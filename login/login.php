@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <img src="../assets/img/logo.svg" alt="logo">
                     </figure>
                     <div id="login">
-                        <form action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF"]); ?>" method="post">
+                        <form action="" method="post">
                             <div class="fromInfo">Je naam</div>
                             <div class="form-group">
                                 <input type="text" name="username" id="username" placeholder="" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">

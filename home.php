@@ -35,9 +35,9 @@ include('./core.php');
             $seeCategory->execute();
             $seeCategory->store_result();
             while ($seeCategory->fetch()) {
-                $liqry = $conn->prepare("SELECT request.id, user.name, request.wid, request.title, category.name, request.location, request.info FROM request INNER JOIN user ON user.id = request.uid INNER JOIN category ON request.category = category.id WHERE wid = 0 AND uid != ? AND request.category IN (" . $theCategory . ");");
+                $liqry = $conn->prepare("SELECT request.id, user.name, request.wid, request.title, category.name, category.img, request.location, request.info FROM request INNER JOIN user ON user.id = request.uid INNER JOIN category ON request.category = category.id WHERE wid = 0 AND uid != ? AND request.category IN (" . $theCategory . ");");
                 $liqry->bind_param('s', $_SESSION["id"],);
-                $liqry->bind_result($id, $uid, $who, $title, $category, $location, $info);
+                $liqry->bind_result($id, $uid, $who, $title, $category, $img, $location, $info);
                 if ($liqry->execute()) {
                     $liqry->store_result();
                     while ($liqry->fetch()) {
@@ -45,7 +45,7 @@ include('./core.php');
             <div id='cards'>
                 
                 <figure id='image'>
-                    <img src='assets/img/blue.jpg' alt='logo'>
+                    <img src='assets/img/category/".$img."' alt='logo'>
                 </figure>
                 <div id='nameCard'>${uid}</div><br>
                 <div id='titleCard'>${title}</div>

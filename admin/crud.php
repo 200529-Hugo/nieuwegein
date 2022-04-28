@@ -4,6 +4,7 @@
 
     $categoryLocation = 'Location:category.php';
     $questionLocation = 'Location:question.php';
+    $categoryURL = $_SERVER['DOCUMENT_ROOT'] . "/nieuwegein-master/assets/img/category/";
     
     if($type == 'categoryAdd'){
         $name = $_POST['name'];
@@ -13,29 +14,39 @@
         } else{
             $hidden = '1';
         }
-        $liqry = $conn->prepare("INSERT INTO `category`(`name`, `info`,`hidden`) VALUES (?,?,?);");
-        $liqry->bind_param('sss',$name,$info,$hidden);
+        $temp = explode(".", $_FILES["fileToUpload"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $categoryURL . $newfilename);
+        $liqry = $conn->prepare("INSERT INTO `category`(`name`, `info`,`hidden`,`img`) VALUES (?,?,?,?);");
+        $liqry->bind_param('ssss',$name,$info,$hidden,$newfilename);
         $liqry->execute();
         header($categoryLocation);
     }
 
     if($type == 'categoryEdit'){
-        $id = $_POST['cid'];
+        $id = $_POST['id'];
         $name = $_POST['name'];
         $info = $_POST['info'];
+        $file = $_POST['file'];
         if(empty($_POST['hidden'])){
             $hidden = '0';
         } else{
             $hidden = '1';
         }
-        $liqry = $conn->prepare("UPDATE `category` SET `name` = ?, `info` = ?, `hidden` = ? WHERE `id` = ?;");
-        $liqry->bind_param('ssss',$name,$info,$hidden,$id);
+        unlink($categoryURL.$file);
+        $temp = explode(".", $_FILES["fileToUpload"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $categoryURL . $newfilename);
+        $liqry = $conn->prepare("UPDATE `category` SET `name` = ?, `info` = ?, `hidden` = ?, img = ? WHERE `id` = ?;");
+        $liqry->bind_param('sssss',$name,$info,$hidden,$newfilename,$id);
         $liqry->execute();
         header($categoryLocation);
     }
 
     if($type == 'categoryDelete'){
-        $id = $_POST['cid'];
+        $id = $_POST['id'];
+        $file = $_POST['file'];
+        unlink($categoryURL.$file);
         $liqry = $conn->prepare("DELETE FROM `category` WHERE `id` = ?;");
         $liqry->bind_param('s',$id);
         $liqry->execute();

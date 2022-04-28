@@ -1,6 +1,6 @@
 <?php
 include('core.php');
-session_start();
+include("aside.php"); 
 $myaccount =  htmlspecialchars($_SESSION["id"]);
 
 if ($_GET['request'] == 'helping') {
@@ -10,7 +10,7 @@ if ($_GET['request'] == 'helping') {
     $request = 'uid';
     $titlePage = "Alle cards die jij hebt aangemaakt";
 }
-include("aside.php"); ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +27,7 @@ include("aside.php"); ?>
     <div id="container">
         <div id="allCards">
             <?php
-            $liqry = $conn->prepare("SELECT id, uid, wid, title, category, location, info FROM request WHERE $request = '$myaccount' ");
+            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, request.location, request.info FROM request INNER JOIN category ON category.id = request.category WHERE $request = '$myaccount' ");
             if ($liqry === false) {
                 echo mysqli_error($conn);
             } else {
@@ -46,6 +46,7 @@ include("aside.php"); ?>
             <div id='infoCard'>${info}</div><br>
             <div id='categoryCard'>${category}</div>
             <div id='locationCard'>${location}</div>
+            <br>
             <a href='offerHelp.php?receiver=${uid}&id=${id}'>ello</a>
         </div>";
                         "</br>";

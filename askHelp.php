@@ -2,6 +2,11 @@
 <html lang="en">
 <?php
 include('./core.php');
+
+$sql2 = "SELECT id, name FROM category WHERE hidden = 0;";
+$stmt2 = $conn->prepare($sql2);
+$stmt2->execute();
+$result = $stmt2->get_result();
 ?>
 
 <head>
@@ -24,7 +29,12 @@ include('./core.php');
     <form action="function.php" method="POST">
         <div id="blas">
             <input type="text" name="title" id="info" value="" placeholder="Onderwerp" required><br><br>
-            <input type="text" name="category" id="info" placeholder="Categorie" value="" required><br><br>
+            <?php
+                while ($categoryInfo = $result->fetch_assoc()) {
+                    echo "<input class='checkbox chb' type='checkbox' id='${categoryInfo['id']}' name='category[]' value='${categoryInfo['id']}'>
+                        <label for='${categoryInfo['name']}'>${categoryInfo['name']}</label>";
+                }
+            ?><br><br>
         </div>
         <input type="text" name="location" id="location" value="locatie" required><br><br>
 
@@ -36,5 +46,6 @@ include('./core.php');
 
 
 </form>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="./assets/js/script.js"></script>
 </html>

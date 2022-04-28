@@ -35,7 +35,7 @@ if ($typeFunction == "messageSendQuick") {
 if($typeFunction == "askHelp"){
     $uid = $_SESSION['id'];
     $title = $_POST['title'];
-    $category = $_POST['category'];
+    $category = $_POST['category'][0];
     $location = $_POST['location'];
     $info = $_POST['info'];
     $wid = 0;
