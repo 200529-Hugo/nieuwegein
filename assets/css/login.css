@@ -1,0 +1,84 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+#container{
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    height: 1250px;
+    color: #3c434a;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+#containerOverlay{
+    background-color: rgba(2, 2, 2, 0.171);
+    height: 100%;
+}
+#center{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+#picture img{
+    width: 100%;
+    display: block;
+    margin-top: 200px;
+}
+#wrapper{
+    width: 320px;
+    height: 300px;
+}
+#login{
+    width: 100%;
+    background-color: white;
+    margin-top: 20px;
+    margin-left: 0;
+    padding: 26px 24px 34px;
+    font-weight: 400;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+}
+input{
+    font-size: 24px;
+    width: 98%;
+    border-width: 0.0625rem;
+    padding: 0.1875rem 0.3125rem;
+    margin: 0 6px 16px 0;
+    min-height: 40px;
+    border-radius: 5px;
+    color: black;
+    max-height: none;
+}
+.checkbox{
+    width: 20px;
+    border-width: 0rem;
+    padding: 0rem 0rem;
+    margin: 0;
+    min-height: 0px;
+    border-radius: 5px;
+    color: black;
+    max-height: none;
+}
+#submit{
+    float: right;
+    background-color: #FFB111;
+    font-size: 14px;
+    min-height: 40px;
+    margin-bottom: 4px;
+    width: 70px;
+    color: white;
+    margin-right: 0px!important;
+}
+#submit:hover{
+    cursor: pointer;
+}
+.wrapper2{
+    background: #efecec;
+    padding: 1rem 1rem 0;
+    height: 40px;
+    width: 105%;
+    border: 1px solid #c3c4c7;
+}
+a{
+    text-decoration: none;
+    color: #3c434a;
+}

@@ -1,7 +1,7 @@
 <?php
 $dbhost = "localhost";
 $dbuser = "root";
-$dbpass = "";
+$dbpass = "root";
 $dbname = "nieuwegein";
 
 $con = new mysqli($dbhost, $dbuser, $dbpass, $dbname);

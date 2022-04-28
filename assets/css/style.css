@@ -1,7 +1,113 @@
-label {
-    display: block;
+*{
+    margin: 0px;
+    padding: 0px;
+    color: rgb(114, 112, 112);
+}
+body{
+    background-color: rgb(236, 236, 236);
 }
 
+aside{
+    float: left;
+    margin-right: 50px;
+    width: 400px;
+    margin-top: 100px;
+    background-color: white;
+    height: 1250px;
+}
+#title{
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 30px;
+    font-weight: 900;
+    background-color: white;
+}
+#logo{
+    justify-content: center;
+    display: flex;
+}
+#logo img{
+    width: 200px;
+}
+h1{
+    text-align: center;
+}
+a{
+    color: #3c434a;
+    font-weight: 900;
+}
+p{
+    text-align: center;
+}
+#signOut{
+    color: red;
+    text-decoration: none;
+}
+
+#allCards{
+    display: flex;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    
+}
 #cards{
     border: solid black 1px;
+    flex-basis: 32.5%;
+    text-align: center;    
+}
+#image img{
+  border-radius: 100%;
+  background-color: black;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+}
+#titleCard{
+    font-size: 20px;
+    font-weight: bold;
+}
+#categoryCard{
+    float: right;
+    margin-right: 33px;
+}
+#locationCard{
+    float: left;
+    margin-left: 33px;
+}
+
+
+
+
+
+
+
+/* help aanvragen */
+#info{
+    width: 90%;
+    padding: 20px;
+}
+#blas{
+    width: 50%;
+    float: left;
+}
+#location{
+    height: 135px;
+    width: 20%;
+}
+#information{
+    width: 70%;
+    height: 600px;
+}
+#submit{
+    width: 70.2%;
+    height: 50px;
+    background-color: white;
+    border: solid gray 1px;
+}
+#submit:hover{
+    background-color: rgb(224, 221, 221);
+    cursor: pointer;
 }
