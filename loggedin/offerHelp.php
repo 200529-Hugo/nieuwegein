@@ -1,5 +1,5 @@
 <?php
-include('./core.php');
+include("../assets/database/core.php");
 
 $id = $_GET['id'];
 $messager = $_SESSION["id"];
@@ -12,17 +12,10 @@ $query1->execute();
 $query1->close();
 ?>
 <head>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            setInterval(function(){
-                $("#autodata").load("autoChat.php?id=<?= $_GET['id']; ?>");
-            }, 100);
-        })
-    </script>
 </head>
-<body onload='scrollDown()'>
+<body>
 <?php 
     include("aside.php");
 ?>
@@ -68,5 +61,13 @@ $query1->close();
 ?>
         
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="./assets/js/script.js"></script>
+        <script src="../assets/js/script.js"></script>
+        <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                $("#autodata").load("autoChat.php?id=<?= $_GET['id']; ?>");
+            }, 400);
+        })
+        setTimeout(scrollDown, 450)
+    </script>
 </body>

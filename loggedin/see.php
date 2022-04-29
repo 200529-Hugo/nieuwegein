@@ -1,5 +1,5 @@
 <?php
-include('core.php');
+include("../assets/database/core.php");
 include("aside.php"); 
 $myaccount =  htmlspecialchars($_SESSION["id"]);
 
@@ -19,7 +19,7 @@ if ($_GET['request'] == 'helping') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -27,11 +27,11 @@ if ($_GET['request'] == 'helping') {
     <div id="container">
         <div id="allCards">
             <?php
-            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, request.location, request.info FROM request INNER JOIN category ON category.id = request.category WHERE $request = '$myaccount' ");
+            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, category.img,request.location, request.info FROM request INNER JOIN category ON category.id = request.category WHERE $request = '$myaccount' ");
             if ($liqry === false) {
                 echo mysqli_error($conn);
             } else {
-                $liqry->bind_result($id, $uid, $who, $title, $category, $location, $info);
+                $liqry->bind_result($id, $uid, $who, $title, $category, $img, $location, $info);
                 if ($liqry->execute()) {
                     $liqry->store_result();
                     while ($liqry->fetch()) {
@@ -39,7 +39,7 @@ if ($_GET['request'] == 'helping') {
         <div id='cards'>
 
             <figure id='image'>
-                <img src='assets/img/blue.jpg' alt='logo'>
+                <img src='../assets/img/category/${img}' alt='logo'>
             </figure>
             <div id='nameCard'>${name}</div><br>
             <div id='titleCard'>${title}</div>

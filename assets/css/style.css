@@ -79,9 +79,8 @@ p{
 }
 
 #autodata{
+    overflow: auto;
     height: 200px;
-    overflow-y: scroll;
-
 }
 
 

@@ -1,5 +1,5 @@
 <?php
-include('./core.php');
+include("../assets/database/core.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ include('./core.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 
@@ -22,12 +22,6 @@ include('./core.php');
     <div id="title">Iedereen die hulp nodig heeft.</div><br>
     <div id="container">
         <div id="allCards">
-            <?php
-            if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-                header("location: login/login.php");
-                exit;
-            }
-            ?>
             <?php
             $seeCategory = $conn->prepare("SELECT category FROM user WHERE id = ?");
             $seeCategory->bind_param('s', $_SESSION["id"]);
@@ -45,7 +39,7 @@ include('./core.php');
             <div id='cards'>
                 
                 <figure id='image'>
-                    <img src='assets/img/category/".$img."' alt='logo'>
+                    <img src='../assets/img/category/".$img."' alt='logo'>
                 </figure>
                 <div id='nameCard'>${uid}</div><br>
                 <div id='titleCard'>${title}</div>

@@ -1,5 +1,5 @@
 <?php
-    include("../core.php");
+    include("./assets/database/core.php");
 
     if (isset($_POST['category']) && $_POST['category'] != "") {
         $helper = $_POST['helper'];

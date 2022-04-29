@@ -1,5 +1,5 @@
 <?php 
-include('./core.php');
+include("../assets/database/core.php");
 
 $typeFunction = $_POST['typeFunction'];
 

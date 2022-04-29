@@ -1,8 +1,8 @@
 <?php
-include("../core.php");
+include("./assets/database/core.php");
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: ../home.php");
+    header("location: ./loggedin/home.php");
     exit;
 }
 
@@ -36,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["name"] = $username;
-
-                            header("location: ../home.php");
+                            session_start();
+                            header("location: ./loggedin/home.php");
                         } else {
                             $login_err = "Invalid username or password.";
                         }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
 
 </head>
 
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div id="center">
                 <div id="wrapper">
                     <figure id="picture">
-                        <img src="../assets/img/logo.svg" alt="logo">
+                        <img src="./assets/img/logo.svg" alt="logo">
                     </figure>
                     <div id="login">
                         <form action="" method="post">

@@ -1,7 +1,7 @@
 <?php
-include("../core.php");
+include("./assets/database/core.php");
 ?>
-<link rel="stylesheet" href="../assets/css/login.css">
+<link rel="stylesheet" href="./assets/css/login.css">
 
 <?php
 
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div id="center">
                 <div id="wrapper">
                     <figure id="picture">
-                        <img src="../assets/img/logo.svg" alt="logo">
+                        <img src="./assets/img/logo.svg" alt="logo">
                     </figure>
                     <div id="login">
                         name: <input type="text" name="name" value="" required>

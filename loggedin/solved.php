@@ -1,5 +1,5 @@
 <?php
-include('./core.php');
+include("../assets/database/core.php");
 ?>
 
 <h1>Delete help</h1>

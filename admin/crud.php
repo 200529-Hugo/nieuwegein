@@ -1,5 +1,5 @@
 <?php 
-    include('../core.php');
+    include("../assets/database/core.php");
     $type = $_POST['type'];
 
     $categoryLocation = 'Location:category.php';
