@@ -27,7 +27,7 @@ if ($_GET['request'] == 'helping') {
     <div id="container">
         <div id="allCards">
             <?php
-            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, category.img,location.name, request.info FROM request INNER JOIN category ON category.id = request.category INNER JOIN location ON request.location = location.id WHERE $request = '$myaccount' ");
+            $liqry = $conn->prepare("SELECT request.id, user.name, request.wid, request.title,category.name, category.img,location.name, request.info FROM request INNER JOIN category ON category.id = request.category INNER JOIN location ON request.location = location.id INNER JOIN user ON request.uid = user.id WHERE $request = '$myaccount' ");
             if ($liqry === false) {
                 echo mysqli_error($conn);
             } else {
@@ -41,15 +41,14 @@ if ($_GET['request'] == 'helping') {
             <figure id='image'>
                 <img src='../assets/img/category/${img}' alt='logo'>
             </figure>
-            <div id='nameCard'>${name}</div><br>
+            <div id='nameCard'>${uid}</div><br>
             <div id='titleCard'>${title}</div>
             <div id='infoCard'>${info}</div><br>
             <div id='categoryCard'>${category}</div>
             <div id='locationCard'>${location}</div>
             <br>
-            <a href='offerHelp.php?receiver=${uid}&id=${id}'>ello</a>
+            <a href='offerHelp.php?receiver=${uid}&id=${id}'>HELP</a>
         </div>";
-                        "</br>";
                     }
                 }
                 $liqry->close();

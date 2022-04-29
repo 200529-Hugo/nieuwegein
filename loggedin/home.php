@@ -47,7 +47,7 @@ include("../assets/database/core.php");
                 <div id='categoryCard'>${category}</div>
                 <div id='locationCard'>${location}</div>
                 <br>
-                <a href='offerHelp.php?receiver=${uid}&id=${id}'>ello</a>
+                <a href='offerHelp.php?receiver=${uid}&id=${id}'>HELP</a>
             </div>";
                         "</br>";
                     }
