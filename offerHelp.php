@@ -1,6 +1,5 @@
 <?php
 include('./core.php');
-session_start();
 
 $id = $_GET['id'];
 $messager = $_SESSION["id"];
@@ -23,7 +22,12 @@ $query1->close();
         })
     </script>
 </head>
-<body>
+<body onload='scrollDown()'>
+<?php 
+    include("aside.php");
+?>
+<div id="title">Iedereen die hulp nodig heeft.</div><br>
+<div id="container">
 <form action="function.php" method="POST">
     message<input type="text" name="message" value="">
     <input type="hidden" name="mid" value="<?= $messager ?>">
@@ -57,7 +61,7 @@ $query1->close();
     </form>
 
     <!-- alles op het scherm krijgen -->
-    <div id="autodata"></div>
+    <div id="autodata" onload='scrollDown()'></div>
 <?php 
     echo '<a href="notEnoughHelp.php?id=' . $id . '">Mijn helper kan me niet genoeg helpen</a><br>';
     echo '<a href="solved.php?id=' . $id . '">Mijn probleem is opgelost</a><br>';

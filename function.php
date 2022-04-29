@@ -1,6 +1,5 @@
 <?php 
 include('./core.php');
-session_start();
 
 $typeFunction = $_POST['typeFunction'];
 
