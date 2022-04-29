@@ -4,6 +4,7 @@
 
     $categoryLocation = 'Location:category.php';
     $questionLocation = 'Location:question.php';
+    $locationLocation = 'Location:location.php';
     $categoryURL = $_SERVER['DOCUMENT_ROOT'] . "/nieuwegein-master/assets/img/category/";
     
     if($type == 'categoryAdd'){
@@ -80,4 +81,40 @@
         $liqry->close();
         header($questionLocation);
     
+    }
+
+    if($type == 'locationAdd'){
+        $name = $_POST['name'];
+        if(empty($_POST['hidden'])){
+            $hidden = '0';
+        } else{
+            $hidden = '1';
+        }
+        $liqry = $conn->prepare("INSERT INTO `location`(`name`, `hidden`) VALUES (?,?);");
+        $liqry->bind_param('ss',$name,$hidden);
+        $liqry->execute();
+        header($locationLocation);
+    }
+
+    if($type == 'locationEdit'){
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        if(empty($_POST['hidden'])){
+            $hidden = '0';
+        } else{
+            $hidden = '1';
+        }
+        
+        $liqry = $conn->prepare("UPDATE `location` SET `name` = ?, `hidden` = ? WHERE `id` = ?;");
+        $liqry->bind_param('sss',$name,$hidden,$id);
+        $liqry->execute();
+        header($locationLocation);
+    }
+
+    if($type == 'locationDelete'){
+        $id = $_POST['id'];
+        $liqry = $conn->prepare("DELETE FROM `location` WHERE `id` = ?;");
+        $liqry->bind_param('s',$id);
+        $liqry->execute();
+        header($locationLocation);
     }

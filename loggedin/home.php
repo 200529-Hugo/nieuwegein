@@ -29,7 +29,7 @@ include("../assets/database/core.php");
             $seeCategory->execute();
             $seeCategory->store_result();
             while ($seeCategory->fetch()) {
-                $liqry = $conn->prepare("SELECT request.id, user.name, request.wid, request.title, category.name, category.img, request.location, request.info FROM request INNER JOIN user ON user.id = request.uid INNER JOIN category ON request.category = category.id WHERE wid = 0 AND uid != ? AND request.category IN (" . $theCategory . ");");
+                $liqry = $conn->prepare("SELECT request.id, user.name, request.wid, request.title, category.name, category.img, location.name, request.info FROM request INNER JOIN user ON user.id = request.uid INNER JOIN category ON request.category = category.id INNER JOIN location ON request.location = location.id WHERE wid = 0 AND uid != ? AND request.category IN (" . $theCategory . ");");
                 $liqry->bind_param('s', $_SESSION["id"],);
                 $liqry->bind_result($id, $uid, $who, $title, $category, $img, $location, $info);
                 if ($liqry->execute()) {

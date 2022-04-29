@@ -35,7 +35,7 @@ if($typeFunction == "askHelp"){
     $uid = $_SESSION['id'];
     $title = $_POST['title'];
     $category = $_POST['category'][0];
-    $location = $_POST['location'];
+    $location = $_POST['location'][0];
     $info = $_POST['info'];
     $wid = 0;
     $created = date("Y/m/d");

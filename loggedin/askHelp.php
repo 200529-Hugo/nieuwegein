@@ -3,10 +3,13 @@
 <?php
 include("../assets/database/core.php");
 
-$sql2 = "SELECT id, name FROM category WHERE hidden = 0;";
-$stmt2 = $conn->prepare($sql2);
-$stmt2->execute();
-$result = $stmt2->get_result();
+$sql = $conn->prepare("SELECT id, name FROM category WHERE hidden = 0;");;
+$sql ->execute();
+$result = $sql->get_result();
+
+$sql2 = $conn->prepare("SELECT id, name FROM location WHERE hidden = 0;");;
+$sql2 ->execute();
+$result2 = $sql2->get_result();
 ?>
 
 <head>
@@ -36,7 +39,12 @@ $result = $stmt2->get_result();
                 }
             ?><br><br>
         </div>
-        <input type="text" name="location" id="location" placeholder="locatie" required><br><br>
+        <?php
+            while ($locationInfo = $result2->fetch_assoc()) {
+                echo "<input class='checkbox chb2' type='checkbox' id='${locationInfo['id']}' name='location[]' value='${locationInfo['id']}'>
+                        <label for='${locationInfo['name']}'>${locationInfo['name']}</label><br>";
+            }
+        ?><br><br>
 
         <input type="text" name="info" id="information" placeholder="meer informatie over wat je nodig hebt." required><br><br>
         <input type="hidden" name="typeFunction" value="askHelp">

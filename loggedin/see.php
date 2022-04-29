@@ -27,7 +27,7 @@ if ($_GET['request'] == 'helping') {
     <div id="container">
         <div id="allCards">
             <?php
-            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, category.img,request.location, request.info FROM request INNER JOIN category ON category.id = request.category WHERE $request = '$myaccount' ");
+            $liqry = $conn->prepare("SELECT request.id, request.uid, request.wid, request.title,category.name, category.img,location.name, request.info FROM request INNER JOIN category ON category.id = request.category INNER JOIN location ON request.location = location.id WHERE $request = '$myaccount' ");
             if ($liqry === false) {
                 echo mysqli_error($conn);
             } else {

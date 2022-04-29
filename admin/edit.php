@@ -36,6 +36,23 @@
             }
             $liqry->close();
         }
+        if($type == "location"){
+            $id = $_GET['id'];
+            $liqry = $conn->prepare("SELECT id, name, hidden FROM location WHERE id = ?;");
+            $liqry->bind_param('i', $id);
+            $liqry->execute();
+            $liqry->bind_result($qid, $name, $hidden);
+            while ($liqry->fetch()) {
+                echo "ID: <input readonly type='number' name='id' value='$qid'><br>";
+                echo "Name: <input type='text' name='name' value='$name'><br>";
+                echo "<input name='hidden' type='checkbox' ";
+                if ($hidden == true) {
+                    echo "checked";
+                }
+                echo '>';
+            }
+            $liqry->close();
+        }
     ?>
     <br>
     <input type="hidden" name="type" value="<?= $type ?>Edit">
